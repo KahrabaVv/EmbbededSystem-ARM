@@ -1,4 +1,4 @@
-#include "Keypad.h"
+#include "keypad.h"
 
 const int ROWS = 4;
 const int COLUMNS = 4;
@@ -28,11 +28,11 @@ void Keypad_Init(){
 		
 }
 
-char Keypad_check(){
+char Keypad_PressedKey(){
 		char keys[ROWS][COLUMNS] = { {'1', '2', '3', 'A'},
-																 {'4', '5', '6', 'B'},
-																 {'7', '8', '9', 'C'}, 
-																 {'*', '0', '#', 'D'} };
+						     {'4', '5', '6', 'B'},
+						     {'7', '8', '9', 'C'}, 
+						     {'*', '0', '#', 'D'} };
 		
 			int i;
 			int j;
