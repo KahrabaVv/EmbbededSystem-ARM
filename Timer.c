@@ -20,3 +20,40 @@ void timer_display(unsigned char minutes,unsigned char seconds){
 		LCD_char_display(s0);
 		// can it be done with LCD_string_display() ?
 }
+unsigned char timer(unsigned char minutes,unsigned char seconds){
+	int counter;
+	RGB_output(14);
+	while(1){
+		timer_display(minutes,seconds);
+		// in case of pause
+		m=minutes;
+		s=seconds;
+		// no need if there is no pause
+		if(((minutes|seconds)!=0)){
+			if(seconds>0){
+				seconds-=1;
+			}
+			else{
+					seconds=59;
+					minutes-=1;
+			}
+		}
+		else{
+			SysTick_wait_10ms(100);
+			RGB_output(0);
+			return 1; //successful timer without interrupt (may be paused and resumed)
+		}
+		//waiting one second
+		for(counter=0;counter<1000;counter++){
+			//checking the SW1 if yes return with 0
+			if(SW3_input()==0){
+				return 2;}
+			if(SW1_input()!=0){
+				while(SW1_input()!=0);
+				return 0;// SW1!=0 which means it is pressed
+			}
+			// waiting 1ms 
+			SysTick_wait(80000/5);
+		}
+	}
+}
