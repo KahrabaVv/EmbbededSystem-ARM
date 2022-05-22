@@ -57,3 +57,118 @@ unsigned char timer(unsigned char minutes,unsigned char seconds){
 		}
 	}
 }
+unsigned char start(unsigned char minutes,unsigned char seconds){
+		int counter,i;// replace sw state with sw_input latelty
+		unsigned char pause_flag=0;
+		m=minutes,s=seconds;
+	if(seconds>59){
+		clear_display();
+		LCD_string_display("ERR");
+		SysTick_wait_10ms(1.5*100);
+		clear_display();
+		return 0;
+		}
+		while(SW3_input()==0){
+		if(SW1_input()!=0){
+		clear_display();
+		RGB_output(0);
+		return 0;// SW1!=0 which means it is pressed
+		}
+		}
+		while(SW3_input()!=0){
+			while(SW2_input()==0){
+					if(pause_flag==1){
+							// blinking code start
+							RGB_output(0);
+							for(counter=0;counter<800;counter++){
+										//checking the SW1 if yes return with 0
+										if(SW3_input()==0){
+										pause_flag=1;
+										RGB_output(0);
+										if(start(minutes,seconds)==1){
+										
+										
+										return 1;
+										
+										}
+										else{
+											clear_display();
+											return 0;
+										}
+										}
+										if(SW1_input()!=0){
+										while(SW1_input()!=0);
+										clear_display();
+										RGB_output(0);
+										return 0;// SW1!=0 which means it is pressed
+										}
+										if(SW2_input()!=0){
+												while(SW2_input()!=0);
+												goto label;
+										} 
+										SysTick_wait(80000/5);
+										}
+										RGB_output(14);
+							for(counter=0;counter<700;counter++){
+										//checking the SW1 if yes return with 0
+										if(SW3_input()==0){
+										pause_flag=1;
+										RGB_output(0);
+										if(start(minutes,seconds)==1){
+										
+										
+										return 1;
+										
+										}
+										else{
+											clear_display();
+											return 0;
+										}
+									}
+										if(SW1_input()!=0){
+										while(SW1_input()!=0);
+										clear_display();
+										RGB_output(0);
+										return 0;// SW1!=0 which means it is pressed
+										}
+										if(SW2_input()!=0){
+												while(SW2_input()!=0);
+												goto label;
+										}
+										// waiting 1ms 
+										SysTick_wait(80000/5);
+										}
+							//blinking code end
+						}
+					if (SW1_input()!=0){
+						clear_display();
+						RGB_output(0);
+						return 0;
+					}
+				}
+label:	if(timer(minutes,seconds)==1){
+				//WRITE ENDING CODE
+				RGB_output(0);
+				return 1; //succesful timer without intterrpt
+			}
+			else{
+					pause_flag=1;
+					minutes=m;
+					seconds=s;
+			}
+			}
+		if(SW3_input()==0){
+		pause_flag=0;
+		RGB_output(0);
+			if(start(minutes,seconds)==1){
+				return 1;
+										
+			}
+			else{
+				clear_display();
+				return 0;
+			}
+		}
+		return 0;
+					
+}

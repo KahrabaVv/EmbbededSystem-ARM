@@ -5,3 +5,4 @@
 
 void timer_display(unsigned char minutes,unsigned char seconds);
 unsigned char timer(unsigned char minutes,unsigned char seconds);
+unsigned char start(unsigned char minutes,unsigned char seconds);
