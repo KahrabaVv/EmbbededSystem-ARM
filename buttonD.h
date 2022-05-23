@@ -4,4 +4,4 @@
 #include "timer.h"
 #include "buzzer.h"
 
-void D();
+void D(); // Prototype
