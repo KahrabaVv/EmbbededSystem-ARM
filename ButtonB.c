@@ -25,6 +25,20 @@ loop:		clear_display();
 				
 				digit=Keypad_PressedKey();
 				
+				if ((digit<=57 && digit>=49)){// if the digit is between 1 to 9 and these are the ascii exchange values
+				
+					int_digit=digit -48 ;// making the digit back from 1 to 9 as an integer to be used later 
+					clear_display();
+					LCD_char_display(digit);
+					SysTick_wait_10ms(2*100);
+					clear_display();
+					
+
+					time=(int)int_digit; //create time variable holding how many minutes and seconds ex:4.5
+					
+					
+					
+					}
 				
 		
 
